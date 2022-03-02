@@ -4,7 +4,6 @@ import os
 from unittest import TestCase
 
 import hcl2
-from hcl2.parser import PARSER_FILE
 
 HCL2_DIR = 'terraform-config'
 JSON_DIR = 'terraform-config-json'
@@ -18,13 +17,6 @@ class TestLoad(TestCase):
         os.chdir(os.path.join(os.path.dirname(__file__), '../helpers'))
 
     def test_load_terraform(self):
-        """Test parsing a set of hcl2 files and force recreating the parser file"""
-        # delete the parser file to force it to be recreated
-        if PARSER_FILE.exists():
-            PARSER_FILE.unlink()
-        self._load_test_files()
-
-    def test_load_terraform_from_cache(self):
         """Test parsing a set of hcl2 files from a cached parser file"""
         self._load_test_files()
 
