@@ -1,9 +1,12 @@
 """A Lark Transformer for transforming a Lark parse tree into a Python dict"""
 import re
 import sys
-from typing import List, Dict, Any
+from typing import List, Dict, Any, TYPE_CHECKING
 
 from lark import Transformer, Discard
+
+if TYPE_CHECKING:
+    from lark.visitors import _DiscardType
 
 HEREDOC_PATTERN = re.compile(r'<<([a-zA-Z][a-zA-Z0-9._-]+)\n(([^\n]|\n)*)\n\s*\1', re.S)
 HEREDOC_TRIM_PATTERN = re.compile(r'<<-([a-zA-Z][a-zA-Z0-9._-]+)\n(([^\n]|\n)*)\n\s*\1', re.S)
@@ -48,6 +51,9 @@ class DictTransformer(Transformer):
     def attr_splat_expr_term(self, args: List) -> str:
         return f"{args[0]}.*.{args[1]}"
 
+    def full_splat_expr_term(self, args: List) -> str:
+        return f"{args[0]}[*].{args[1]}"
+
     def tuple(self, args: List) -> List:
         return [self.to_string_dollar(arg) for arg in self.strip_new_line_tokens(args)]
 
@@ -78,8 +84,8 @@ class DictTransformer(Transformer):
     def arguments(self, args: List) -> List:
         return args
 
-    def new_line_and_or_comma(self, args: List) -> Discard:
-        return Discard()
+    def new_line_and_or_comma(self, args: List) -> "_DiscardType":
+        return Discard
 
     def block(self, args: List) -> Dict:
         args = self.strip_new_line_tokens(args)
@@ -187,8 +193,8 @@ class DictTransformer(Transformer):
 
         return '"{}"'.format('\n'.join(lines))
 
-    def new_line_or_comment(self, args: List) -> Discard:
-        return Discard()
+    def new_line_or_comment(self, args: List) -> "_DiscardType":
+        return Discard
 
     def for_tuple_expr(self, args: List) -> str:
         args = self.strip_new_line_tokens(args)
@@ -213,7 +219,7 @@ class DictTransformer(Transformer):
         Remove new line and Discard tokens.
         The parser will sometimes include these in the tree so we need to strip them out here
         """
-        return [arg for arg in args if arg != "\n" and not isinstance(arg, Discard)]
+        return [arg for arg in args if arg != "\n"]
 
     def to_string_dollar(self, value: Any) -> Any:
         """Wrap a string in ${ and }"""
