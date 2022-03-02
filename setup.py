@@ -64,7 +64,6 @@ setup(
     include_package_data=True,
     zip_safe=False,
     install_requires=get_requirements(),
-    test_suite='nose.collector',
     scripts=[
         'bin/hcl2tojson',
     ],
