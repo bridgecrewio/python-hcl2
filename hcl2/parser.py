@@ -1,13 +1,11 @@
 """A parser for HCL2 implemented using the Lark parser"""
 from importlib import resources
-from pathlib import Path
 from typing import Dict
 
 from lark import Lark
 
 from hcl2.transformer import DictTransformer
 
-PARSER_FILE = Path(__file__).parent / ".lark_cache.bin"
 LARK_GRAMMAR = resources.read_text(__package__, "hcl2.lark")
 
 
@@ -37,11 +35,12 @@ def strip_line_comment(line: str):
 class Hcl2:
     """Wrapper class for Lark"""
 
+    lark_parser = Lark(grammar=LARK_GRAMMAR, parser="lalr", cache=True)
+
     def parse(self, text: str) -> Dict:
         """Parses a HCL file and returns a dict"""
 
-        lark_parser = Lark(grammar=LARK_GRAMMAR, parser="lalr", cache=str(PARSER_FILE))
-        tree = lark_parser.parse(text)
+        tree = Hcl2.lark_parser.parse(text)
         return DictTransformer().transform(tree)
 
 
