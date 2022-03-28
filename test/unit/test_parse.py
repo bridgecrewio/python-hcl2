@@ -97,11 +97,14 @@ class TestParse(TestCase):
         # failure scenarios are handled in the other tests
 
     def test_parse_windows_line_separator(self):
+        """Test parsing a windows line separator"""
+
         crlf_str = 'variable "region" {\r\n}\r\n'
 
         result = hcl2.loads(crlf_str)
 
-        self.assertDictEqual(result,
+        self.assertDictEqual(
+            result,
             {
                 "variable": [
                     {
