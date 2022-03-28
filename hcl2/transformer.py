@@ -1,15 +1,25 @@
 """A Lark Transformer for transforming a Lark parse tree into a Python dict"""
+from __future__ import annotations
+
 import re
 import sys
 from typing import List, Dict, Any, TYPE_CHECKING
 
-from lark import Transformer, Discard
+from lark import Transformer
+from lark.visitors import v_args
 
 if TYPE_CHECKING:
-    from lark.visitors import _DiscardType
+    from lark.tree import Meta
 
-HEREDOC_PATTERN = re.compile(r'<<([a-zA-Z][a-zA-Z0-9._-]+)\n(([^\n]|\n)*)\n\s*\1', re.S)
-HEREDOC_TRIM_PATTERN = re.compile(r'<<-([a-zA-Z][a-zA-Z0-9._-]+)\n(([^\n]|\n)*)\n\s*\1', re.S)
+HEREDOC_PATTERN = re.compile(r"<<([a-zA-Z][a-zA-Z0-9._-]+)\n(([^\n]|\n)*)\n\s*\1", re.S)
+HEREDOC_TRIM_PATTERN = re.compile(r"<<-([a-zA-Z][a-zA-Z0-9._-]+)\n(([^\n]|\n)*)\n\s*\1", re.S)
+
+START_LINE = "__start_line__"
+END_LINE = "__end_line__"
+
+NO_BLOCK_LABEL_TYPES = {"locals", "terraform"}
+ONE_BLOCK_LABEL_TYPES = {"module", "provider", "variable"}
+TWO_BLOCK_LABEL_TYPES = {"data", "resource"}
 
 
 # pylint: disable=missing-docstring,unused-argument
@@ -64,7 +74,7 @@ class DictTransformer(Transformer):
         value = self.to_string_dollar(args[1])
 
         return {
-            key: value
+            key: value,
         }
 
     def object(self, args: List) -> Dict:
@@ -76,7 +86,7 @@ class DictTransformer(Transformer):
 
     def function_call(self, args: List) -> str:
         args = self.strip_new_line_tokens(args)
-        args_str = ''
+        args_str = ""
         if len(args) > 1:
             args_str = ",".join([str(arg) for arg in args[1]])
         return f"{str(args[0])}({args_str})"
@@ -84,10 +94,8 @@ class DictTransformer(Transformer):
     def arguments(self, args: List) -> List:
         return args
 
-    def new_line_and_or_comma(self, args: List) -> "_DiscardType":
-        return Discard
-
-    def block(self, args: List) -> Dict:
+    @v_args(meta=True)
+    def block(self, meta: Meta, args: List) -> Dict:
         args = self.strip_new_line_tokens(args)
 
         # if the last token is a string instead of an object then the block is empty
@@ -104,6 +112,21 @@ class DictTransformer(Transformer):
 
         current_level[self.strip_quotes(args[-2])] = args[-1]
 
+        if args[0] in TWO_BLOCK_LABEL_TYPES:
+            label_1 = self.strip_quotes(args[1])
+            label_2 = self.strip_quotes(args[2])
+            result[args[0]][label_1][label_2][START_LINE] = meta.line
+            result[args[0]][label_1][label_2][END_LINE] = meta.end_line
+
+        if args[0] in ONE_BLOCK_LABEL_TYPES:
+            label_1 = self.strip_quotes(args[1])
+            result[args[0]][label_1][START_LINE] = meta.line
+            result[args[0]][label_1][END_LINE] = meta.end_line
+
+        if args[0] in NO_BLOCK_LABEL_TYPES:
+            result[args[0]][START_LINE] = meta.line
+            result[args[0]][END_LINE] = meta.end_line
+
         return result
 
     def one_line_block(self, args: List) -> Dict:
@@ -116,7 +139,7 @@ class DictTransformer(Transformer):
         value = self.to_string_dollar(args[1])
 
         return {
-            key: value
+            key: value,
         }
 
     def conditional(self, args: List) -> str:
@@ -180,26 +203,23 @@ class DictTransformer(Transformer):
             raise RuntimeError(f"Invalid Heredoc token: {args[0]}")
 
         text = match.group(2)
-        lines = text.split('\n')
+        lines = text.split("\n")
 
         # calculate the min number of leading spaces in each line
         min_spaces = sys.maxsize
         for line in lines:
-            leading_spaces = len(line) - len(line.lstrip(' '))
+            leading_spaces = len(line) - len(line.lstrip(" "))
             min_spaces = min(min_spaces, leading_spaces)
 
         # trim off that number of leading spaces from each line
         lines = [line[min_spaces:] for line in lines]
 
-        return '"{}"'.format('\n'.join(lines))
-
-    def new_line_or_comment(self, args: List) -> "_DiscardType":
-        return Discard
+        return '"{}"'.format("\n".join(lines))
 
     def for_tuple_expr(self, args: List) -> str:
         args = self.strip_new_line_tokens(args)
         for_expr = " ".join([str(arg) for arg in args[1:-1]])
-        return f'[{for_expr}]'
+        return f"[{for_expr}]"
 
     def for_intro(self, args: List) -> str:
         args = self.strip_new_line_tokens(args)
@@ -212,7 +232,7 @@ class DictTransformer(Transformer):
     def for_object_expr(self, args: List) -> str:
         args = self.strip_new_line_tokens(args)
         for_expr = " ".join([str(arg) for arg in args[1:-1]])
-        return f'{{{for_expr}}}'
+        return f"{{{for_expr}}}"
 
     def strip_new_line_tokens(self, args: List) -> List:
         """
@@ -226,7 +246,7 @@ class DictTransformer(Transformer):
         if isinstance(value, str):
             if value.startswith('"') and value.endswith('"'):
                 return str(value)[1:-1]
-            return f'${{{value}}}'
+            return f"${{{value}}}"
         return value
 
     def strip_quotes(self, value: Any) -> Any:

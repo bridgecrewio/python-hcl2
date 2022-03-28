@@ -8,7 +8,9 @@
           ],
           "event_pattern": [
             "    {\n      \"foo\": \"bar\"\n    }"
-          ]
+          ],
+          "__start_line__": 1,
+          "__end_line__": 8
         }
       }
     },
@@ -20,7 +22,9 @@
           ],
           "event_pattern": [
             "{\n  \"foo\": \"bar\"\n}"
-          ]
+          ],
+          "__start_line__": 10,
+          "__end_line__": 17
         }
       }
     },
@@ -32,7 +36,9 @@
           ],
           "event_pattern": [
             "${jsonencode(var.cloudwatch_pattern_deploytool)}"
-          ]
+          ],
+          "__start_line__": 19,
+          "__end_line__": 22
         }
       }
     }
