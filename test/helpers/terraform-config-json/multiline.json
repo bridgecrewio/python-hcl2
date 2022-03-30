@@ -10,7 +10,9 @@
       ],
       "transform": [
         "${{for s in local.some_strings : s => {'name': '${upper(s)}', 'tag': 'test'}}}"
-      ]
+      ],
+      "__start_line__": 1,
+      "__end_line__": 10
     }
   ]
 }

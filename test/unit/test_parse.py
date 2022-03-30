@@ -95,3 +95,24 @@ class TestParse(TestCase):
                 self.fail(f'The parser threw an exception for the string: {test_string}. {err}')
 
         # failure scenarios are handled in the other tests
+
+    def test_parse_windows_line_separator(self):
+        """Test parsing a windows line separator"""
+
+        crlf_str = 'variable "region" {\r\n}\r\n'
+
+        result = hcl2.loads(crlf_str)
+
+        self.assertDictEqual(
+            result,
+            {
+                "variable": [
+                    {
+                        "region": {
+                            "__start_line__": 1,
+                            "__end_line__": 2
+                        }
+                    }
+                ]
+            }
+        )

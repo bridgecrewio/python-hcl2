@@ -4,7 +4,9 @@
       "aws": {
         "region": [
           "${var.region}"
-          ]
+        ],
+        "__start_line__": 2,
+        "__end_line__": 4
       }
     },
     {
@@ -14,7 +16,9 @@
         ],
         "alias": [
           "backup"
-        ]
+        ],
+        "__start_line__": 7,
+        "__end_line__": 10
       }
     }
   ],
@@ -22,7 +26,9 @@
     {
       "required_version": [
         "0.12"
-      ]
+      ],
+      "__start_line__": 15,
+      "__end_line__": 15
     },
     {
       "backend": [
@@ -34,21 +40,23 @@
         {
           "aws": [
             {
-            "source": "hashicorp/aws"
-          }
+              "source": "hashicorp/aws"
+            }
           ],
           "null": [
             {
-            "source": "hashicorp/null"
-          }
+              "source": "hashicorp/null"
+            }
           ],
           "template": [
             {
-            "source": "hashicorp/template"
-          }
-            ]
+              "source": "hashicorp/template"
+            }
+          ]
         }
-      ]
+      ],
+      "__start_line__": 17,
+      "__end_line__": 30
     }
   ]
 }

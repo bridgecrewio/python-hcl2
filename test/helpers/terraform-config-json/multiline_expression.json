@@ -1,0 +1,38 @@
+{
+  "locals": [
+    {
+      "ternary_single_line": [
+        "${var.test == \"\" ? 0 : 1}"
+      ],
+      "ternary_question_mark_break": [
+        "${var.test == \"\" ? 0 : 1}"
+      ],
+      "ternary_colon_break": [
+        "${var.test == \"\" ? 0 : 1}"
+      ],
+      "ternary_multi_line": [
+        "${var.test == \"\" ? 0 : 1}"
+      ],
+      "ternary_pre_question_mark_break": [
+        "${var.test == \"\" ? 0 : 1}"
+      ],
+      "ternary_pre_colon_break": [
+        "${var.test == \"\" ? 0 : 1}"
+      ],
+      "ternary_pre_multi_line": [
+        "${var.test == \"\" ? 0 : 1}"
+      ],
+      "binary_single_line": [
+        "${False || True}"
+      ],
+      "binary_operator_break": [
+        "${False || True}"
+      ],
+      "binary_pre_operator_break": [
+        "${False || True}"
+      ],
+      "__start_line__": 1,
+      "__end_line__": 32
+    }
+  ]
+}

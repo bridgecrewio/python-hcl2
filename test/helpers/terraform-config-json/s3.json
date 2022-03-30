@@ -33,7 +33,7 @@
                   "storage_class": "GLACIER"
                 }
               ]
-              }
+            }
           ],
           "versioning": [
             {
@@ -41,7 +41,9 @@
                 true
               ]
             }
-          ]
+          ],
+          "__start_line__": 1,
+          "__end_line__": 27
         }
       }
     }
@@ -60,7 +62,9 @@
         ],
         "region": [
           "${var.region}"
-        ]
+        ],
+        "__start_line__": 29,
+        "__end_line__": 35
       }
     }
   ]

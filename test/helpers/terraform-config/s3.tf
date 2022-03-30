@@ -8,16 +8,20 @@ resource "aws_s3_bucket" "name" {
     enabled = true
 
     expiration {
+      // much more comments
       days = 365
     }
 
     transition = {
+      # way more comments
       days          = 30
       storage_class = "GLACIER"
     }
+    # some comment
   }
 
   versioning {
+    # more comments
     enabled = true
   }
 }

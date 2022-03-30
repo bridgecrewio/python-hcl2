@@ -5,11 +5,13 @@
         {
           "null": [
             {
-            "source": "hashicorp/null"
-          }
-            ]
+              "source": "hashicorp/null"
+            }
+          ]
         }
-      ]
+      ],
+      "__start_line__": 1,
+      "__end_line__": 7
     }
   ]
 }

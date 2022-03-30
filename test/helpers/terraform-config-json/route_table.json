@@ -14,7 +14,9 @@
           ],
           "transit_gateway_id": [
             "${data.aws_ec2_transit_gateway.tgw[0].id}"
-          ]
+          ],
+          "__start_line__": 1,
+          "__end_line__": 11
         }
       }
     },
@@ -32,7 +34,9 @@
           ],
           "transit_gateway_id": [
             "${data.aws_ec2_transit_gateway.tgw[0].id}"
-          ]
+          ],
+          "__start_line__": 13,
+          "__end_line__": 18
         }
       }
     }
