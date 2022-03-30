@@ -39,15 +39,14 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: 3.7
-      - uses: dschep/install-pipenv-action@v1
       - name: create python package
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git fetch --tags
           git pull
-          pipenv run pip install -r requirements.pip -e .
-          pipenv run python setup.py sdist bdist_wheel
+          pip install -r requirements.pip -e .
+          python setup.py sdist bdist_wheel
       - name: Publish a Python distribution to PyPI
         uses: pypa/gh-action-pypi-publish@master
         with:
