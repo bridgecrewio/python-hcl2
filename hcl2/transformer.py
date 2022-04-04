@@ -112,13 +112,13 @@ class DictTransformer(Transformer):
 
         current_level[self.strip_quotes(args[-2])] = args[-1]
 
-        if args[0] in TWO_BLOCK_LABEL_TYPES:
+        if args[0] in TWO_BLOCK_LABEL_TYPES and isinstance(args[1], str) and isinstance(args[2], str):
             label_1 = self.strip_quotes(args[1])
             label_2 = self.strip_quotes(args[2])
             result[args[0]][label_1][label_2][START_LINE] = meta.line
             result[args[0]][label_1][label_2][END_LINE] = meta.end_line
 
-        if args[0] in ONE_BLOCK_LABEL_TYPES:
+        if args[0] in ONE_BLOCK_LABEL_TYPES and isinstance(args[1], str):
             label_1 = self.strip_quotes(args[1])
             result[args[0]][label_1][START_LINE] = meta.line
             result[args[0]][label_1][END_LINE] = meta.end_line

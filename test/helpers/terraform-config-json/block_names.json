@@ -1,0 +1,53 @@
+{
+  "resource": [
+    {
+      "aws_eks_cluster": {
+        "eks_bad": {
+          "name": [
+            "bad-eks"
+          ],
+          "role_arn": [
+            "${var.role_arn}"
+          ],
+          "vpc_config": [
+            {
+              "subnet_ids": [
+                []
+              ],
+              "endpoint_public_access": [
+                true
+              ]
+            }
+          ],
+          "encryption_config": [
+            {
+              "provider": [
+                {
+                  "key_arn": [
+                    "${var.key_arn}"
+                  ]
+                }
+              ],
+              "resources": [
+                []
+              ]
+            }
+          ],
+          "resource": [
+            {
+              "data": [
+                {
+                  "some": [
+                    "thing"
+                  ]
+                }
+              ]
+            }
+          ],
+          "__start_line__": 1,
+          "__end_line__": 23
+        }
+      }
+    }
+  ]
+}
