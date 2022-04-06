@@ -34,5 +34,29 @@
       "__start_line__": 1,
       "__end_line__": 32
     }
+  ],
+  "variable": [
+    {
+      "some_var": {
+        "description": [
+          "description"
+        ],
+        "type": [
+          "${string}"
+        ],
+        "validation": [
+          {
+            "condition": [
+              "${alltrue(['${length(regexall(\"^st\",var.name)) == 0}'])}"
+            ],
+            "error_message": [
+              "error"
+            ]
+          }
+        ],
+        "__start_line__": 34,
+        "__end_line__": 61
+      }
+    }
   ]
 }
