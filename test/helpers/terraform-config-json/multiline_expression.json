@@ -47,7 +47,7 @@
         "validation": [
           {
             "condition": [
-              "${alltrue(['${length(regexall(\"^st\",var.name)) == 0}'])}"
+              "${alltrue(['${length(regexall(\"^st\",var.some_var)) == 0}'])}"
             ],
             "error_message": [
               "error"
