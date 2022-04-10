@@ -1,16 +1,18 @@
 """The API that will be exposed to users of this package"""
+from __future__ import annotations
+
 import re
-from typing import TextIO
+from typing import TextIO, Any
 
 from hcl2.parser import hcl2, strip_line_comment
 
 
-def load(file: TextIO) -> dict:
+def load(file: TextIO) -> dict[str, list[dict[str, Any]]]:
     """Load a HCL2 file"""
     return loads(file.read())
 
 
-def loads(text: str) -> dict:
+def loads(text: str) -> dict[str, list[dict[str, Any]]]:
     """Load HCL2 from a string"""
     # append new line as a workaround for https://github.com/lark-parser/lark/issues/237
     # Lark doesn't support a EOF token so our grammar can't look for "new line or end of file"
@@ -30,9 +32,9 @@ def loads(text: str) -> dict:
     # ... /* a = 123     <- this will not
     in_multi_line_comment = False
     found_multi_line_comment_start = False
+    found_multi_line_interpolation_start = False
 
     for line in text.split('\n'):
-        token = None
         comment = None
         if not multi_line_string_denominator and \
                 not in_multi_line_comment and '/*' in line:
@@ -57,6 +59,23 @@ def loads(text: str) -> dict:
             # (but we don't want to do this for every line if it's not necessary)
             stripped = strip_line_comment(line)[0] if not comment else line  # maybe we already stripped it
             if stripped.replace('\\"', '').count('"') % 2 != 0:
+                if (
+                    "${" in stripped
+                    and "}" not in stripped
+                    and stripped.index('"') < stripped.index("${")
+                ):
+                    # this seems to be a multiline interpolation string
+                    found_multi_line_interpolation_start = True
+                    continue
+                if (
+                    found_multi_line_interpolation_start
+                    and "}" in stripped
+                    and stripped.index("}") < stripped.index('"')
+                ):
+                    # found also the closing end
+                    found_multi_line_interpolation_start = False
+                    continue
+
                 # the stripped off comment is still an unclosed string, so now we have a real error
                 raise ValueError(f"Line has unclosed quote marks: {line}")
 

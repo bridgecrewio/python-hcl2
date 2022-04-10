@@ -1,6 +1,8 @@
 """A parser for HCL2 implemented using the Lark parser"""
+from __future__ import annotations
+
 from importlib import resources
-from typing import Dict
+from typing import Any
 
 from lark import Lark
 
@@ -9,7 +11,7 @@ from hcl2.transformer import DictTransformer
 LARK_GRAMMAR = resources.read_text(__package__, "hcl2.lark")
 
 
-def strip_line_comment(line: str):
+def strip_line_comment(line: str) -> tuple[str, str, str] | tuple[str, None, None]:
     """
     Finds the start of a comment in the line, if any, and returns the line
     up to the comment, the token that started the comment (#, //, or /*),
@@ -28,7 +30,7 @@ def strip_line_comment(line: str):
                 # we are not in a string, so this marks the start of a comment
                 return line[0:index], token, line[index + len(token):]
         index += 1
-# abcd#
+
     return line, None, None
 
 
@@ -37,7 +39,7 @@ class Hcl2:
 
     lark_parser = Lark(grammar=LARK_GRAMMAR, parser="lalr", propagate_positions=True, cache=True)
 
-    def parse(self, text: str) -> Dict:
+    def parse(self, text: str) -> dict[str, list[dict[str, Any]]]:
         """Parses a HCL file and returns a dict"""
 
         tree = Hcl2.lark_parser.parse(text)

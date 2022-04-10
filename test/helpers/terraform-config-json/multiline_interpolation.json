@@ -1,0 +1,14 @@
+{
+  "locals": [
+    {
+      "multiline": [
+        "${\n    max(\n      ceil(\n        log((local.instance_memory * 1024) / 21474836480, 2) * 600\n      ),\n      200\n    )\n  }"
+      ],
+      "multiline_2": [
+        "${max(\n      ceil(\n        log((local.instance_memory * 1024) / 21474836480, 2) * 600\n      ),\n      200\n  )}"
+      ],
+      "__start_line__": 1,
+      "__end_line__": 17
+    }
+  ]
+}
