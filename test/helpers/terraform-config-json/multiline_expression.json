@@ -57,6 +57,21 @@
         "__start_line__": 34,
         "__end_line__": 61
       }
+    },
+    {
+      "some_var2": {
+        "description": [
+          "description"
+        ],
+        "type": [
+          "${string}"
+        ],
+        "default": [
+          "${cidrsubnets(\"10.0.0.0/24\",2,2)}"
+        ],
+        "__start_line__": 63,
+        "__end_line__": 79
+      }
     }
   ]
 }

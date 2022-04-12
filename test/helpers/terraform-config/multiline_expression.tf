@@ -59,3 +59,21 @@ variable "some_var" {
   # comment 15
   # comment 16
 }
+
+variable "some_var2" {
+  description = "description"
+  type        = string
+  default     = cidrsubnets(
+    # comment 1
+    # comment 2
+    "10.0.0.0/24",
+    # comment 3
+    # comment 4
+    2,
+    # comment 5
+    # comment 6
+    2
+    # comment 7
+    # comment 8
+  )
+}
