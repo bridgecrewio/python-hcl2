@@ -46,7 +46,7 @@ int_lit : DECIMAL+
 DECIMAL : "0".."9"
 EXP_MARK : ("e" | "E") ("+" | "-")?
 
-tuple : "[" (_NEW_LINE_OR_COMMENT* expression (_NEW_LINE_OR_COMMENT* "," _NEW_LINE_OR_COMMENT* expression)* ","? _NEW_LINE_OR_COMMENT*)? _NEW_LINE_OR_COMMENT? "]"
+tuple : "[" (_NEW_LINE_OR_COMMENT* expression (_NEW_LINE_OR_COMMENT* "," _NEW_LINE_OR_COMMENT* expression)* ","? _NEW_LINE_OR_COMMENT*)? _NEW_LINE_OR_COMMENT? "]" | "[" _NEW_LINE_OR_COMMENT* "]"
 object : "{" _NEW_LINE_OR_COMMENT* (object_elem (","? _NEW_LINE_OR_COMMENT* object_elem )* ","? _NEW_LINE_OR_COMMENT*)* "}"
 object_elem : (identifier | expression) ("=" | ":")? expression
 
