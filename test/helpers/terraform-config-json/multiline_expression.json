@@ -73,5 +73,51 @@
         "__end_line__": 79
       }
     }
+  ],
+  "resource": [
+    {
+      "null_resource": {
+        "multiline_comment_multiline": {
+          "triggers": [
+            []
+          ],
+          "__start_line__": 81,
+          "__end_line__": 86
+        }
+      }
+    },
+    {
+      "null_resource": {
+        "multiline_comment_single_line_before_closing_bracket": {
+          "triggers": [
+            []
+          ],
+          "__start_line__": 88,
+          "__end_line__": 91
+        }
+      }
+    },
+    {
+      "null_resource": {
+        "multiline_comment_single_line_between_brackets": {
+          "triggers": [
+            []
+          ],
+          "__start_line__": 93,
+          "__end_line__": 97
+        }
+      }
+    },
+    {
+      "null_resource": {
+        "multiline_comment_single_line_after_opening_bracket": {
+          "triggers": [
+            []
+          ],
+          "__start_line__": 99,
+          "__end_line__": 102
+        }
+      }
+    }
   ]
 }
