@@ -47,3 +47,12 @@ locals {
     length(var.forwarding_rules_template.exclude_cidrs) > 0
   )
 }
+
+locals {
+  splat_level_1 = distinct(local.nested_data[*].id)
+  splat_level_2 = flatten(local.nested_data[*].nested[*].id)
+  splat_level_3 = flatten(local.nested_data[*].nested[*].again[*][0].foo.bar[0])
+  splat_legacy_level_1 = local.nested_data.*.id
+  splat_legacy_level_2 = local.nested_data.*.nested.*.id
+  splat_legacy_level_3 = local.nested_data.*.nested.*.again.*.0.foo.bar.0
+}
