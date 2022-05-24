@@ -47,22 +47,31 @@ class DictTransformer(Transformer[Token, "dict[str, list[dict[str, Any]]]"]):
         # otherwise return the value itself
         return args[0]
 
-    def index_expr_term(self, args: list) -> str:
+    def index_expr_term(self, args: list[str]) -> str:
         args = self.strip_new_line_tokens(args)
         return f"{str(args[0])}{str(args[1])}"
 
-    def index(self, args: list) -> str:
+    def index(self, args: list[int | str]) -> str:
         args = self.strip_new_line_tokens(args)
         return f"[{str(args[0])}]"
 
-    def get_attr_expr_term(self, args: list) -> str:
-        return f"{str(args[0])}.{str(args[1])}"
+    def get_attr_expr_term(self, args: list[str]) -> str:
+        return f"{str(args[0])}{str(args[1])}"
 
-    def attr_splat_expr_term(self, args: list) -> str:
-        return f"{args[0]}.*.{args[1]}"
+    def get_attr(self, args: list[str]) -> str:
+        return f".{args[0]}"
 
-    def full_splat_expr_term(self, args: list) -> str:
-        return f"{args[0]}[*].{args[1]}"
+    def attr_splat_expr_term(self, args: list[str]) -> str:
+        return f"{args[0]}{args[1]}"
+
+    def attr_splat(self, args: list[str]) -> str:
+        return f".*{''.join(args)}"
+
+    def full_splat_expr_term(self, args: list[str]) -> str:
+        return f"{args[0]}{args[1]}"
+
+    def full_splat(self, args: list[str]) -> str:
+        return f"[*]{''.join(args)}"
 
     def tuple(self, args: list) -> list:
         return [self.to_string_dollar(arg) for arg in self.strip_new_line_tokens(args)]

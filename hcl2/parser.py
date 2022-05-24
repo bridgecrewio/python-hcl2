@@ -1,14 +1,19 @@
 """A parser for HCL2 implemented using the Lark parser"""
 from __future__ import annotations
 
-from importlib import resources
+import sys
 from typing import Any
 
 from lark import Lark
 
 from hcl2.transformer import DictTransformer
 
-LARK_GRAMMAR = resources.read_text(__package__, "hcl2.lark")
+if sys.version_info >= (3, 9):  # pragma: no cover
+    from importlib.resources import files
+else:
+    from importlib_resources import files
+
+LARK_GRAMMAR = (files(__package__) / "hcl2.lark").read_text()
 
 
 def strip_line_comment(line: str) -> tuple[str, str, str] | tuple[str, None, None]:
