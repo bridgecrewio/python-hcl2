@@ -1,3 +1,26 @@
+/*
+ * something
+ */
+
+/*
+ * something
+ */
+
+/*
+ * something
+ */
+
+/*
+ * something
+ */
+
+/*
+ * something
+ */
+
+/*
+ * something
+ */
 locals {
   some_strings = ["foo", "bar", "baz"]
 
@@ -8,3 +31,26 @@ locals {
     }
   }
 }
+/*
+ * something
+ */
+
+/*
+ * something
+ */
+
+/*
+ * something
+ */
+
+/*
+ * something
+ */
+
+/*
+ * something
+ */
+
+/*
+ * something
+ */
