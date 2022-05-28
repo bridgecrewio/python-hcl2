@@ -1,4 +1,4 @@
-start : _NEW_LINE_OR_COMMENT? body _NEW_LINE_OR_COMMENT?
+start : _NEW_LINE_OR_COMMENT* body _NEW_LINE_OR_COMMENT?
 body : (attribute | block _NEW_LINE_OR_COMMENT+ )*
 attribute : (identifier) "=" expression _NEW_LINE_OR_COMMENT*
 block : identifier (identifier | STRING_LIT)* "{" _NEW_LINE_OR_COMMENT* body "}"
@@ -71,4 +71,4 @@ full_splat : "[*]" (get_attr | index)*
 !for_cond : "if" _NEW_LINE_OR_COMMENT? expression
 
 %ignore /[ \t]+/
-%ignore /\/\*(.|\n)*?(\*\/)/
+%ignore /\/\*(.|\n)*?\*\//
