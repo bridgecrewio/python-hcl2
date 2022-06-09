@@ -33,6 +33,20 @@
       ],
       "__start_line__": 1,
       "__end_line__": 32
+    },
+    {
+      "servers": [
+        "${[for serverkey in local.configjson.Servers : merge({'a': 'b'})]}"
+      ],
+      "__start_line__": 104,
+      "__end_line__": 122
+    },
+    {
+      "transform": [
+        "${{for s in local.some_strings : s => {'name': '${upper(s)}', 'tag': 'test'}}}"
+      ],
+      "__start_line__": 124,
+      "__end_line__": 146
     }
   ],
   "variable": [
