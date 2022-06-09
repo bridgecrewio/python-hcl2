@@ -10,5 +10,19 @@
       "__start_line__": 1,
       "__end_line__": 17
     }
+  ],
+  "resource": [
+    {
+      "aws_alb": {
+        "alb": {
+          "name": ["foobar-nlb"],
+          "load_balancer_type": ["network"],
+          "enable_cross_zone_load_balancing": [true],
+          "tags": ["${merge(\"${var.lbcustomtags}\", tomap({\n     Name = \"foobar-nlb\"\n  }))}"],
+          "__start_line__": 19,
+          "__end_line__": 28
+        }
+      }
+    }
   ]
 }

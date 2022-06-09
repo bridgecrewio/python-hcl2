@@ -15,3 +15,14 @@ locals {
       200
   )}"
 }
+
+resource "aws_alb" "alb" {
+  name                             = "foobar-nlb"
+  load_balancer_type               = "network"
+  enable_cross_zone_load_balancing = true
+
+
+  tags = "${merge("${var.lbcustomtags}", tomap({
+     Name = "foobar-nlb"
+  }))}"
+}
