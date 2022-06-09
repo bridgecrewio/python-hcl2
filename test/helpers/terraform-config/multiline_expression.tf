@@ -100,3 +100,47 @@ resource "null_resource" "multiline_comment_single_line_after_opening_bracket" {
     triggers = [ /* "a", "b" */
     ]
 }
+
+locals {
+  # comment 1
+  # comment 2
+  servers = [
+    # comment 3
+    # comment 4
+    for serverkey in local.configjson.Servers : merge(
+      # comment 5
+      # comment 6
+      { a = "b" }
+      # comment 7
+      # comment 8
+    )
+    # comment 9
+    # comment 10
+  ]
+  # comment 11
+  # comment 12
+}
+
+locals {
+  # comment 1
+  # comment 2
+  transform = {
+    # comment 3
+    # comment 4
+    for s in local.some_strings : s =>
+    # comment 5
+    # comment 6
+    {
+      # comment 7
+      # comment 8
+      name = upper(s)
+      tag  = "test"
+      # comment 9
+      # comment 10
+    }
+    # comment 11
+    # comment 12
+  }
+  # comment 13
+  # comment 14
+}

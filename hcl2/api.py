@@ -33,6 +33,7 @@ def loads(text: str) -> dict[str, list[dict[str, Any]]]:
     in_multi_line_comment = False
     found_multi_line_comment_start = False
     found_multi_line_interpolation_start = False
+    interpolation_count = 0
 
     for line in text.split('\n'):
         comment = None
@@ -59,20 +60,14 @@ def loads(text: str) -> dict[str, list[dict[str, Any]]]:
             # (but we don't want to do this for every line if it's not necessary)
             stripped = strip_line_comment(line)[0] if not comment else line  # maybe we already stripped it
             if stripped.replace('\\"', '').count('"') % 2 != 0:
-                if (
-                    "${" in stripped
-                    and "}" not in stripped
-                    and stripped.index('"') < stripped.index("${")
-                ):
-                    # this seems to be a multiline interpolation string
+                if "${" in stripped or found_multi_line_interpolation_start:
+                    interpolation_count += stripped.count("{")
+                    interpolation_count -= stripped.count("}")
+
+                if interpolation_count > 0:
                     found_multi_line_interpolation_start = True
                     continue
-                if (
-                    found_multi_line_interpolation_start
-                    and "}" in stripped
-                    and stripped.index("}") < stripped.index('"')
-                ):
-                    # found also the closing end
+                if found_multi_line_interpolation_start and interpolation_count == 0:
                     found_multi_line_interpolation_start = False
                     continue
 

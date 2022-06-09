@@ -65,8 +65,8 @@ get_attr : "." identifier
 attr_splat : ".*" (get_attr | index)*
 full_splat : "[*]" (get_attr | index)*
 
-!for_tuple_expr : "[" _NEW_LINE_OR_COMMENT? for_intro _NEW_LINE_OR_COMMENT? expression _NEW_LINE_OR_COMMENT? for_cond? _NEW_LINE_OR_COMMENT? "]"
-!for_object_expr : "{" _NEW_LINE_OR_COMMENT? for_intro expression "=>" _NEW_LINE_OR_COMMENT? expression "..."? _NEW_LINE_OR_COMMENT? for_cond? _NEW_LINE_OR_COMMENT? "}"
+!for_tuple_expr : "[" _NEW_LINE_OR_COMMENT* for_intro _NEW_LINE_OR_COMMENT? expression _NEW_LINE_OR_COMMENT* (for_cond _NEW_LINE_OR_COMMENT*)? "]"
+!for_object_expr : "{" _NEW_LINE_OR_COMMENT* for_intro expression "=>" _NEW_LINE_OR_COMMENT* expression "..."? _NEW_LINE_OR_COMMENT* (for_cond _NEW_LINE_OR_COMMENT*)? "}"
 !for_intro : "for" _NEW_LINE_OR_COMMENT? identifier ("," identifier _NEW_LINE_OR_COMMENT?)? _NEW_LINE_OR_COMMENT? "in" _NEW_LINE_OR_COMMENT? expression ":" _NEW_LINE_OR_COMMENT?
 !for_cond : "if" _NEW_LINE_OR_COMMENT? expression
 
