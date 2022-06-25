@@ -1,4 +1,7 @@
 """The API that will be exposed to users of this package"""
+
+# pylint: disable=too-many-branches
+
 from __future__ import annotations
 
 import re
