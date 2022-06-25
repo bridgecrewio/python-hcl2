@@ -6,10 +6,11 @@
 
 # Notice
 
-This is a fork of the [Python HCL2](https://github.com/amplify-education/python-hcl2) repo by Amplify and is officially supported by Bridgecrew.
-We contributed as much as possible to the upstream project, but they are now deviating in a way, that pushing new changes upstream doesn't make sense anymore.
+This is a fork of the [Python HCL2](https://github.com/amplify-education/python-hcl2) repo by Amplify and is 
+officially supported by Bridgecrew. We contributed as much as possible to the upstream project, but they are now 
+deviating in a way, that pushing new changes upstream doesn't make sense anymore.
 
-# Bridgecrew Python HCL2
+## Python HCL2
 
 A parser for [HCL2](https://github.com/hashicorp/hcl/blob/hcl2/hclsyntax/spec.md) written in Python using
 [Lark](https://github.com/lark-parser/lark). This parser only supports HCL2 and isn't backwards compatible
