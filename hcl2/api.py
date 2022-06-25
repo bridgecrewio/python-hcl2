@@ -71,6 +71,10 @@ def loads(text: str) -> dict[str, list[dict[str, Any]]]:
                     found_multi_line_interpolation_start = False
                     continue
 
+                # in case of one or more escaped slashes before the double quote
+                if stripped.replace("\\\\", "").replace('\\"', "").count('"') % 2 == 0:
+                    continue
+
                 # the stripped off comment is still an unclosed string, so now we have a real error
                 raise ValueError(f"Line has unclosed quote marks: {line}")
 

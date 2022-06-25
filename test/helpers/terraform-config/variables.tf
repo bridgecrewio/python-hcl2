@@ -56,3 +56,11 @@ locals {
   splat_legacy_level_2 = local.nested_data.*.nested.*.id
   splat_legacy_level_3 = local.nested_data.*.nested.*.again.*.0.foo.bar.0
 }
+
+variable "slash" {
+    default = "\\"
+}
+
+variable "multiple_slashes" {
+    default = "\\\"hello\"\\"
+}

@@ -38,6 +38,24 @@
         "__start_line__": 27,
         "__end_line__": 30
       }
+    },
+    {
+      "slash": {
+        "default": [
+          "\\\\"
+        ],
+        "__start_line__": 60,
+        "__end_line__": 62
+      }
+    },
+    {
+      "multiple_slashes": {
+        "default": [
+          "\\\\\\\"hello\\\"\\\\"
+        ],
+        "__start_line__": 64,
+        "__end_line__": 66
+      }
     }
   ],
   "locals": [
