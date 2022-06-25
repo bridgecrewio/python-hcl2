@@ -43,7 +43,6 @@ setup(
     long_description_content_type='text/markdown',
     # Get strings from http://www.python.org/pypi?%3Aaction=list_classifiers
     classifiers=[
-        'Development Status :: 4 - Beta',
         'Topic :: Software Development :: Libraries :: Python Modules',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',
@@ -59,9 +58,9 @@ setup(
         'Typing :: Typed',
     ],
     keywords='',
-    author='Amplify Education',
-    author_email='github@amplify.com',
-    url='https://github.com/amplify-education/python-hcl2',
+    author='bridgecrew',
+    author_email='meet@bridgecrew.io',
+    url='https://github.com/bridgecrewio/python-hcl2',
     license='MIT',
     packages=find_packages(),
     include_package_data=True,

@@ -1,5 +1,0 @@
-engines:
-    coverage:
-        enabled: true
-        excluded_paths:
-            - test/**
