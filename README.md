@@ -7,8 +7,8 @@
 # Notice
 
 This is a fork of the [Python HCL2](https://github.com/amplify-education/python-hcl2) repo by Amplify and is 
-officially supported by Bridgecrew. We contributed as much as possible to the upstream project, but they are now 
-deviating in a way, that pushing new changes upstream doesn't make sense anymore.
+officially supported by Bridgecrew. We contributed as much as possible to the upstream project, but the two projects 
+are now deviating in a way that pushing new changes upstream doesn't make sense anymore.
 
 ## Python HCL2
 
