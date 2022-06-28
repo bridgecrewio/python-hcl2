@@ -1,4 +1,7 @@
 """The API that will be exposed to users of this package"""
+
+# pylint: disable=too-many-branches
+
 from __future__ import annotations
 
 import re
@@ -69,6 +72,10 @@ def loads(text: str) -> dict[str, list[dict[str, Any]]]:
                     continue
                 if found_multi_line_interpolation_start and interpolation_count == 0:
                     found_multi_line_interpolation_start = False
+                    continue
+
+                # in case of one or more escaped slashes before the double quote
+                if stripped.replace("\\\\", "").replace('\\"', "").count('"') % 2 == 0:
                     continue
 
                 # the stripped off comment is still an unclosed string, so now we have a real error
