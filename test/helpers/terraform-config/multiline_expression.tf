@@ -144,3 +144,45 @@ locals {
   # comment 13
   # comment 14
 }
+
+locals {
+  test_1 = (
+    # comment 1
+    # comment 2
+    var.used != null
+    # comment 3
+    # comment 4
+    ? var.used
+    # comment 5
+    # comment 6
+    : "not set"
+    # comment 7
+    # comment 8
+  )
+  test_2 = (
+    # comment 1
+    # comment 2
+    var.used != null
+    # comment 3
+    # comment 4
+    ?
+    # comment 5
+    # comment 6
+    var.used
+    # comment 7
+    # comment 8
+    :
+    # comment 9
+    # comment 10
+    "not set"
+    # comment 11
+    # comment 12
+  )
+  test_3 = (
+    # comment 1
+    # comment 2
+    "string"
+    # comment 3
+    # comment 4
+  )
+}

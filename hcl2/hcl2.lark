@@ -7,9 +7,9 @@ _NEW_LINE_OR_COMMENT: ( /\r?\n/ | /#.*\n/ | /\/\/.*\n/ )+
 
 identifier : /[a-zA-Z_][a-zA-Z0-9_-]*/
 
-?expression : expr_term _NEW_LINE_OR_COMMENT? | operation | conditional
+?expression : expr_term _NEW_LINE_OR_COMMENT* | operation | conditional
 
-conditional : expression "?" _NEW_LINE_OR_COMMENT? expression _NEW_LINE_OR_COMMENT? ":" _NEW_LINE_OR_COMMENT? expression _NEW_LINE_OR_COMMENT?
+conditional : expression "?" _NEW_LINE_OR_COMMENT* expression _NEW_LINE_OR_COMMENT* ":" _NEW_LINE_OR_COMMENT* expression _NEW_LINE_OR_COMMENT?
 
 ?operation : unary_op | binary_op
 !unary_op : ("-" | "!") expr_term
@@ -17,7 +17,7 @@ binary_op : expression binary_term
 !binary_operator : "==" | "!=" | "<" | ">" | "<=" | ">=" | "-" | "*" | "/" | "%" | "&&" | "||" | "+"
 binary_term : binary_operator _NEW_LINE_OR_COMMENT? expression
 
-expr_term : "(" _NEW_LINE_OR_COMMENT? expression _NEW_LINE_OR_COMMENT? ")"
+expr_term : "(" _NEW_LINE_OR_COMMENT* expression _NEW_LINE_OR_COMMENT? ")"
             | float_lit
             | int_lit
             | STRING_LIT
