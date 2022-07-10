@@ -47,6 +47,19 @@
       ],
       "__start_line__": 124,
       "__end_line__": 146
+    },
+    {
+      "test_1": [
+        "${var.used != None ? var.used : \"not set\"}"
+      ],
+      "test_2": [
+        "${var.used != None ? var.used : \"not set\"}"
+      ],
+      "test_3": [
+        "string"
+      ],
+      "__start_line__": 148,
+      "__end_line__": 188
     }
   ],
   "variable": [
