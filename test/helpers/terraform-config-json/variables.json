@@ -102,6 +102,13 @@
       ],
       "__start_line__": 51,
       "__end_line__": 58
+    },
+    {
+      "inner_quotes": [
+        "${sum([parseint(regex(\"[0-9]{2}$\", each.value.name), 10), 50])}"
+      ],
+      "__start_line__": 68,
+      "__end_line__": 70
     }
   ]
 }

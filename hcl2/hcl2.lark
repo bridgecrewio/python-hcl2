@@ -38,7 +38,8 @@ expr_term : "(" _NEW_LINE_OR_COMMENT* expression _NEW_LINE_OR_COMMENT? ")"
 STRING_LIT : "\"" (STRING_CHARS | INTERPOLATION)* "\""
 STRING_CHARS : /(?:(?!\${)([^"\\]|\\.))+/+ // any character except '"" unless inside a interpolation string
 NESTED_INTERPOLATION : "${" /[^}]+/ "}"
-INTERPOLATION : "${" (/(?:(?!\${)([^}]))+/ | NESTED_INTERPOLATION)+ "}"
+NESTED_QUOTES : "\"" /[^"]+/ "\""
+INTERPOLATION : "${" (/(?:(?!\${)([^}"]))+/ | NESTED_QUOTES | NESTED_INTERPOLATION)+ "}"
 
 int_lit : DECIMAL+
 !float_lit: DECIMAL+ "." DECIMAL+ (EXP_MARK DECIMAL+)?
