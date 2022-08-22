@@ -28,6 +28,7 @@ class TestLoad(TestCase):
             relative_current_dir = current_dir.replace(dir_prefix, '')
             current_out_dir = os.path.join(JSON_DIR, relative_current_dir)
             for file_name in files:
+                # file_name = "backend.tf"
                 file_path = os.path.join(current_dir, file_name)
                 json_file_path = os.path.join(current_out_dir, file_name)
                 json_file_path = os.path.splitext(json_file_path)[0] + '.json'
@@ -48,3 +49,4 @@ class TestLoad(TestCase):
                             json_dict = json.load(json_file)
 
                             self.assertDictEqual(hcl2_dict, json_dict)
+                # break

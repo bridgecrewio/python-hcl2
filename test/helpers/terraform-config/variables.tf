@@ -64,3 +64,7 @@ variable "slash" {
 variable "multiple_slashes" {
     default = "\\\"hello\"\\"
 }
+
+locals {
+  inner_quotes = "${sum([parseint(regex("[0-9]{2}$", each.value.name), 10), 50])}"
+}
