@@ -31,22 +31,25 @@
       "binary_pre_operator_break": [
         "${False || True}"
       ],
+      "binary_operator_break_comment": [
+        "${True && True}"
+      ],
       "__start_line__": 1,
-      "__end_line__": 32
+      "__end_line__": 42
     },
     {
       "servers": [
         "${[for serverkey in local.configjson.Servers : merge({'a': 'b'})]}"
       ],
-      "__start_line__": 104,
-      "__end_line__": 122
+      "__start_line__": 114,
+      "__end_line__": 132
     },
     {
       "transform": [
         "${{for s in local.some_strings : s => {'name': '${upper(s)}', 'tag': 'test'}}}"
       ],
-      "__start_line__": 124,
-      "__end_line__": 146
+      "__start_line__": 134,
+      "__end_line__": 156
     },
     {
       "test_1": [
@@ -58,8 +61,8 @@
       "test_3": [
         "string"
       ],
-      "__start_line__": 148,
-      "__end_line__": 188
+      "__start_line__": 158,
+      "__end_line__": 198
     }
   ],
   "variable": [
@@ -81,8 +84,8 @@
             ]
           }
         ],
-        "__start_line__": 34,
-        "__end_line__": 61
+        "__start_line__": 44,
+        "__end_line__": 71
       }
     },
     {
@@ -96,8 +99,8 @@
         "default": [
           "${cidrsubnets(\"10.0.0.0/24\",2,2)}"
         ],
-        "__start_line__": 63,
-        "__end_line__": 79
+        "__start_line__": 73,
+        "__end_line__": 89
       }
     }
   ],
@@ -108,8 +111,8 @@
           "triggers": [
             []
           ],
-          "__start_line__": 81,
-          "__end_line__": 86
+          "__start_line__": 91,
+          "__end_line__": 96
         }
       }
     },
@@ -119,8 +122,8 @@
           "triggers": [
             []
           ],
-          "__start_line__": 88,
-          "__end_line__": 91
+          "__start_line__": 98,
+          "__end_line__": 101
         }
       }
     },
@@ -130,8 +133,8 @@
           "triggers": [
             []
           ],
-          "__start_line__": 93,
-          "__end_line__": 97
+          "__start_line__": 103,
+          "__end_line__": 107
         }
       }
     },
@@ -141,8 +144,8 @@
           "triggers": [
             []
           ],
-          "__start_line__": 99,
-          "__end_line__": 102
+          "__start_line__": 109,
+          "__end_line__": 112
         }
       }
     }

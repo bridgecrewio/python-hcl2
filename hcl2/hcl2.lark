@@ -15,7 +15,7 @@ conditional : expression "?" _NEW_LINE_OR_COMMENT* expression _NEW_LINE_OR_COMME
 !unary_op : ("-" | "!") expr_term
 binary_op : expression binary_term
 !binary_operator : "==" | "!=" | "<" | ">" | "<=" | ">=" | "-" | "*" | "/" | "%" | "&&" | "||" | "+"
-binary_term : binary_operator _NEW_LINE_OR_COMMENT? expression
+binary_term : binary_operator _NEW_LINE_OR_COMMENT* expression
 
 expr_term : "(" _NEW_LINE_OR_COMMENT* expression _NEW_LINE_OR_COMMENT? ")"
             | float_lit
