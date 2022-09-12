@@ -29,6 +29,16 @@ locals {
   binary_pre_operator_break = (false
   || true)
 
+  binary_operator_break_comment = (
+    # comment 1
+    # comment 2
+    true &&
+    # comment 3
+    # comment 4
+    true
+    # comment 5
+    # comment 6
+  )
 }
 
 variable "some_var" {
