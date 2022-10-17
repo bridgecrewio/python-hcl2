@@ -10,23 +10,23 @@ jobs:
     steps:
       - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b  # v3
       - name: Set up Python
-        uses: actions/setup-python@98f2ad02fd48d057ee3b4d4f66525b231c3e52b6  # v3
+        uses: actions/setup-python@13ae5bb136fac2878aff31522b9efb785519f984  # v3
         with:
           python-version: "3.11-dev"
       - name: Set up Python
-        uses: actions/setup-python@98f2ad02fd48d057ee3b4d4f66525b231c3e52b6  # v3
+        uses: actions/setup-python@13ae5bb136fac2878aff31522b9efb785519f984  # v3
         with:
           python-version: "3.10"
       - name: Set up Python
-        uses: actions/setup-python@98f2ad02fd48d057ee3b4d4f66525b231c3e52b6  # v3
+        uses: actions/setup-python@13ae5bb136fac2878aff31522b9efb785519f984  # v3
         with:
           python-version: "3.9"
       - name: Set up Python
-        uses: actions/setup-python@98f2ad02fd48d057ee3b4d4f66525b231c3e52b6  # v3
+        uses: actions/setup-python@13ae5bb136fac2878aff31522b9efb785519f984  # v3
         with:
           python-version: "3.8"
       - name: Set up Python
-        uses: actions/setup-python@98f2ad02fd48d057ee3b4d4f66525b231c3e52b6  # v3
+        uses: actions/setup-python@13ae5bb136fac2878aff31522b9efb785519f984  # v3
         with:
           python-version: "3.7"
       - name: run UT
