@@ -12,6 +12,8 @@ jobs:
     runs-on: [self-hosted, public, linux, x64]
     permissions:
       contents: write
+    outputs:
+      version: ${{ steps.version.outputs.version }}
     steps:
       - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8  # v3
       - name: update docs and bump version
@@ -34,6 +36,8 @@ jobs:
           git push origin
           git tag $new_tag
           git push origin $new_tag
+          
+          echo "version=$new_tag" >> $GITHUB_OUTPUT
   publish-package:
     needs: bump-version
     runs-on: [self-hosted, public, linux, x64]
@@ -62,3 +66,42 @@ jobs:
       - name: sleep and wait for package to refresh
         run: |
           sleep 2m
+
+  create-pr:
+    needs: publish-package
+    runs-on: ubuntu-latest
+    environment: release
+    env:
+      PYTHON_VERSION: "3.7"
+    steps:
+      - name: Checkout checkov
+        uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8  # v3
+        with:
+          token: ${{ secrets.PAT_TOKEN }}
+          repository: bridgecrewio/checkov
+      - uses: actions/setup-python@13ae5bb136fac2878aff31522b9efb785519f984  # v4
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      - name: Prepare PR
+        run: |
+          # install needed tools
+          python -m pip install --no-cache-dir --upgrade pipenv "pipenv-setup[black]" "vistir<0.7.0"
+
+          # update Pipfile
+          pipenv --python ${{ env.PYTHON_VERSION }}
+          pipenv install bc-python-hcl2==${{ needs.bump-version.outputs.version }}
+          pipenv lock
+
+          # update setup.py
+          pipenv-setup sync --pipfile
+      - name: Create PR
+        uses: peter-evans/create-pull-request@b4d51739f96fca8047ad065eccef63442d8e99f7  # v4
+        with:
+          token: ${{ secrets.PAT_TOKEN }}
+          branch: update-python-hcl2-dep
+          delete-branch: true
+          commit-message: update bc-python-hcl2 version
+          title: "chore: update bc-python-hcl2 version to ${{ needs.bump-version.outputs.version }}"
+          body: |
+            - Automatic update of bc-python-hcl2
+            powered by [create-pull-request](https://github.com/peter-evans/create-pull-request) GHA
