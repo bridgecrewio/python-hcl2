@@ -41,6 +41,7 @@ jobs:
   publish-package:
     needs: bump-version
     runs-on: [self-hosted, public, linux, x64]
+    environment: release
     permissions:
       contents: write
     steps:
@@ -61,8 +62,7 @@ jobs:
       - name: Publish a Python distribution to PyPI
         uses: pypa/gh-action-pypi-publish@37f50c210e3d2f9450da2cd423303d6a14a6e29f  # v1
         with:
-          user: __token__
-          password: ${{ secrets.pypi_password }}
+          password: ${{ secrets.PYPI_TOKEN }}
       - name: sleep and wait for package to refresh
         run: |
           sleep 2m
