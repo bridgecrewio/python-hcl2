@@ -25,8 +25,6 @@ TWO_BLOCK_LABEL_TYPES = {"data", "resource"}
 class Heredoc(str):
     """An alias to differentiate between a string and a heredoc."""
 
-    pass
-
 
 # pylint: disable=missing-docstring,unused-argument
 class DictTransformer(Transformer[Token, "dict[str, list[dict[str, Any]]]"]):
