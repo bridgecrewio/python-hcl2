@@ -48,5 +48,5 @@ class TestLoad(TestCase):
                             hcl2_dict = hcl2.load(hcl2_file)
                             json_dict = json.load(json_file)
 
-                            self.assertDictEqual(hcl2_dict, json_dict)
+                            self.assertDictEqual(hcl2_dict, json_dict, msg=f"missmatch found in {file_name}")
                 # break

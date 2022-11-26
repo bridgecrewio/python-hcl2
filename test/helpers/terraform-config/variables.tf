@@ -69,3 +69,9 @@ locals {
   inner_quotes = "${sum([parseint(regex("[0-9]{2}$", each.value.name), 10), 50])}"
   inner_empty_quotes = "${replace(data.aws_route53_zone.a.name, "/[.]$/", "")}"
 }
+
+locals {
+  var1 = "a" == "b" ? "true" : "false"
+  var2 = a == b ? "true" : "false"
+  var3 = "Quotes are \"fun\"!"
+}

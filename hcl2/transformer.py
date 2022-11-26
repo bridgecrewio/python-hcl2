@@ -22,6 +22,12 @@ ONE_BLOCK_LABEL_TYPES = {"module", "provider", "variable"}
 TWO_BLOCK_LABEL_TYPES = {"data", "resource"}
 
 
+class Heredoc(str):
+    """An alias to differentiate between a string and a heredoc."""
+
+    pass
+
+
 # pylint: disable=missing-docstring,unused-argument
 class DictTransformer(Transformer[Token, "dict[str, list[dict[str, Any]]]"]):
     def float_lit(self, args: list) -> float:
@@ -197,7 +203,7 @@ class DictTransformer(Transformer[Token, "dict[str, list[dict[str, Any]]]"]):
         match = HEREDOC_PATTERN.match(str(args[0]))
         if not match:
             raise RuntimeError(f"Invalid Heredoc token: {args[0]}")
-        return f'"{match.group(2)}"'
+        return Heredoc(f'"{match.group(2)}"')
 
     def heredoc_template_trim(self, args: list) -> str:
         # See https://github.com/hashicorp/hcl2/blob/master/hcl/hclsyntax/spec.md#template-expressions
@@ -220,7 +226,7 @@ class DictTransformer(Transformer[Token, "dict[str, list[dict[str, Any]]]"]):
         # trim off that number of leading spaces from each line
         lines = [line[min_spaces:] for line in lines]
 
-        return '"{}"'.format("\n".join(lines))
+        return Heredoc('"{}"'.format("\n".join(lines)))
 
     def for_tuple_expr(self, args: list) -> str:
         args = self.strip_new_line_tokens(args)
@@ -250,8 +256,25 @@ class DictTransformer(Transformer[Token, "dict[str, list[dict[str, Any]]]"]):
     def to_string_dollar(self, value: Any) -> Any:
         """Wrap a string in ${ and }"""
         if isinstance(value, str):
-            if value.startswith('"') and value.endswith('"'):
+            if isinstance(value, Heredoc):
+                # shortcut for heredoc
                 return str(value)[1:-1]
+
+            if value.startswith('"') and value.endswith('"'):
+                # assumes to be a string
+
+                if value.startswith('"${') and value.endswith('}"'):
+                    # shortcut for old Terraform syntax, when trying to reference another block
+                    return str(value)[1:-1]
+
+                # a special case when the string ends with a slash,
+                # therefore 'value.count('\\"')' needs to be reduced by 1
+                slash_str_end = 1 if value.endswith('\\"') else 0
+
+                if value.count('"') - (value.count('\\"') - slash_str_end) == 2:
+                    # making sure it is really a string and not a ternary operator for example
+                    # "Quotes are \"fun\"!" vs "a" == "b" ? "true" : "false"
+                    return str(value)[1:-1]
             return f"${{{value}}}"
         return value
 
