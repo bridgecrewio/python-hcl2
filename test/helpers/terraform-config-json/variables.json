@@ -112,6 +112,19 @@
       ],
       "__start_line__": 68,
       "__end_line__": 71
+    },
+    {
+      "var1": [
+        "${\"a\" == \"b\" ? \"true\" : \"false\"}"
+      ],
+      "var2": [
+        "${a == b ? \"true\" : \"false\"}"
+      ],
+      "var3": [
+        "Quotes are \\\"fun\\\"!"
+      ],
+      "__start_line__": 73,
+      "__end_line__": 77
     }
   ]
 }
