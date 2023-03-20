@@ -28,14 +28,14 @@ Learn more at <https://www.amplify.com>
 ## Getting Started
 ### Prerequisites
 
-python-hcl2 requires Python 3.6.0 or higher to run.
+python-hcl2 requires Python 3.7 or higher to run.
 
 ### Installing
 
 This package can be installed using `pip`
 
 ```sh
-pip3 install python-hcl2
+pip install bc-python-hcl2
 ```
 
 ### Usage
