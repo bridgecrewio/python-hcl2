@@ -21,8 +21,6 @@ jobs:
     runs-on: [self-hosted, public, linux, x64]
     permissions:
       contents: write
-      # IMPORTANT: this permission is mandatory for trusted publishing to pypi
-      id-token: write
     outputs:
       version: ${{ steps.version.outputs.version }}
     steps:
@@ -56,6 +54,8 @@ jobs:
     environment: release
     permissions:
       contents: write
+      # IMPORTANT: this permission is mandatory for trusted publishing to pypi
+      id-token: write
     steps:
       - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11  # v3
       - uses: actions/setup-python@65d7f2d534ac1bc67fcd62888c5f4f3d2cb2b236  # v4
