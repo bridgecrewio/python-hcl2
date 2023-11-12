@@ -5,6 +5,5 @@ mypy
 # Testing tools
 pytest
 pytest-cov
-mock>=1.0.1,<2
-coverage>=4.5.1,<5
+coverage
 # Additional libraries

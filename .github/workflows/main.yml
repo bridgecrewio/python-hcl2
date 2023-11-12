@@ -10,7 +10,11 @@ on:
       - 'CHANGELOG.md'
       - '.github/**'
 
-permissions: read-all
+permissions:
+  contents: read
+
+env:
+  MIN_PYTHON_VERSION: "3.8"
 
 jobs:
   bump-version:
@@ -54,10 +58,9 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11  # v3
-      - name: Set up Python 3.7
-        uses: actions/setup-python@65d7f2d534ac1bc67fcd62888c5f4f3d2cb2b236  # v4
+      - uses: actions/setup-python@65d7f2d534ac1bc67fcd62888c5f4f3d2cb2b236  # v4
         with:
-          python-version: 3.7
+          python-version: ${{ env.MIN_PYTHON_VERSION }}
       - name: create python package
         run: |
           git config --local user.email "action@github.com"
@@ -77,8 +80,6 @@ jobs:
     needs: [bump-version, publish-package]
     runs-on: ubuntu-latest
     environment: release
-    env:
-      PYTHON_VERSION: "3.7"
     steps:
       - name: Checkout checkov
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11  # v3
@@ -87,14 +88,14 @@ jobs:
           repository: bridgecrewio/checkov
       - uses: actions/setup-python@65d7f2d534ac1bc67fcd62888c5f4f3d2cb2b236  # v4
         with:
-          python-version: ${{ env.PYTHON_VERSION }}
+          python-version: ${{ env.MIN_PYTHON_VERSION }}
       - name: Prepare PR
         run: |
           # install needed tools
           python -m pip install --no-cache-dir --upgrade pipenv "pipenv-setup[black]" "vistir<0.7.0"
 
           # update Pipfile
-          pipenv --python ${{ env.PYTHON_VERSION }}
+          pipenv --python ${{ env.MIN_PYTHON_VERSION }}
           pipenv install bc-python-hcl2==${{ needs.bump-version.outputs.version }}
           pipenv lock
 
