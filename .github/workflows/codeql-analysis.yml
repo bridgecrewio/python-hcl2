@@ -23,8 +23,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11  # v3
       - name: Initialize CodeQL
-        uses: github/codeql-action/init@c0d1daa7f7e14667747d73a7dbbe8c074bc8bfe2  # v2
+        uses: github/codeql-action/init@e8893c57a1f3a2b659b6b55564fdfdbbd2982911  # v2
         with:
           languages: 'python'
       - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@c0d1daa7f7e14667747d73a7dbbe8c074bc8bfe2  # v2
+        uses: github/codeql-action/analyze@e8893c57a1f3a2b659b6b55564fdfdbbd2982911  # v2
