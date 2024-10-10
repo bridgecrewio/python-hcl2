@@ -2,3 +2,4 @@
 # http://docs.python.org/2/distutils/setupscript.html#relationships-between-distributions-and-packages
 lark>=1.0.0
 importlib-resources>=2.0.0,<7.0.0; python_version < '3.9'
+regex==2024.9.11
