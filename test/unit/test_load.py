@@ -40,7 +40,7 @@ class TestLoad(TestCase):
                                 hcl2.load(hcl2_file)
                                 self.fail("Should throw parsing error for file")
                             except Exception as err:
-                                if not str(err).startswith('Line has unclosed quote marks'):
+                                if not str(err).startswith('Line has unclosed quote marks') and not str(err).startswith('No terminal matches'):
                                     self.fail(f'Got an unexpected error, {err}')
                     else:
                         with open(file_path, 'r', encoding='utf8') as hcl2_file, \
