@@ -6,7 +6,7 @@ import sys
 from typing import Any, TYPE_CHECKING
 
 from lark import Transformer, Token
-from lark.visitors import v_args
+from lark.visitors import v_args, Discard
 
 if TYPE_CHECKING:
     from lark.tree import Meta
@@ -106,6 +106,14 @@ class DictTransformer(Transformer[Token, "dict[str, list[dict[str, Any]]]"]):
 
     def arguments(self, args: list) -> list:
         return args
+
+    def provider_function_call(self, args: list) -> str:
+        args = self.strip_new_line_tokens(args)
+        args_str = ""
+        if len(args) > 5:
+            args_str = ", ".join([str(arg) for arg in args[5] if arg is not Discard])
+        provider_func = "::".join([args[0], args[2], args[4]])
+        return f"{provider_func}({args_str})"
 
     @v_args(meta=True)
     def block(self, meta: Meta, args: list) -> dict[str, Any]:
