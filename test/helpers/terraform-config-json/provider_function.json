@@ -1,0 +1,10 @@
+{
+  "locals": [
+    {
+      "name2": ["${provider::test2::test(\"a\")}"],
+      "name3": ["${test(\"a\")}"],
+      "__end_line__": 4, 
+      "__start_line__": 1
+    }
+  ]
+}
