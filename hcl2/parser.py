@@ -42,7 +42,7 @@ def strip_line_comment(line: str) -> tuple[str, str, str] | tuple[str, None, Non
 class Hcl2:
     """Wrapper class for Lark"""
 
-    lark_parser = Lark(grammar=LARK_GRAMMAR, parser="lalr", propagate_positions=True, cache=True)
+    lark_parser = Lark(grammar=LARK_GRAMMAR, parser="lalr", propagate_positions=True, cache=True, regex=True)
 
     def parse(self, text: str) -> dict[str, list[dict[str, Any]]]:
         """Parses a HCL file and returns a dict"""
