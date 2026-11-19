@@ -1,6 +1,12 @@
 start : _NEW_LINE_OR_COMMENT* body _NEW_LINE_OR_COMMENT?
 body : (attribute | block _NEW_LINE_OR_COMMENT+ )*
-attribute : (identifier) "=" expression _NEW_LINE_OR_COMMENT*
+attribute : _attribute_name "=" expression _NEW_LINE_OR_COMMENT*
+_attribute_name : identifier | _keyword | _literal_value
+_keyword : FOR | IN | IF
+_literal_value : STRING_LIT | int_lit | float_lit
+FOR : "for"
+IN : "in"
+IF : "if"
 block : identifier (identifier | STRING_LIT)* "{" _NEW_LINE_OR_COMMENT* body "}"
 
 _NEW_LINE_OR_COMMENT: ( /\r?\n/ | /#.*\n/ | /\/\/.*\n/ )+
@@ -71,8 +77,8 @@ full_splat : "[*]" (get_attr | index)*
 
 !for_tuple_expr : "[" _NEW_LINE_OR_COMMENT* for_intro _NEW_LINE_OR_COMMENT? expression _NEW_LINE_OR_COMMENT* (for_cond _NEW_LINE_OR_COMMENT*)? "]"
 !for_object_expr : "{" _NEW_LINE_OR_COMMENT* for_intro expression "=>" _NEW_LINE_OR_COMMENT* expression "..."? _NEW_LINE_OR_COMMENT* (for_cond _NEW_LINE_OR_COMMENT*)? "}"
-!for_intro : "for" _NEW_LINE_OR_COMMENT? identifier ("," identifier _NEW_LINE_OR_COMMENT?)? _NEW_LINE_OR_COMMENT? "in" _NEW_LINE_OR_COMMENT? expression ":" _NEW_LINE_OR_COMMENT?
-!for_cond : "if" _NEW_LINE_OR_COMMENT? expression
+!for_intro : FOR _NEW_LINE_OR_COMMENT? identifier ("," identifier _NEW_LINE_OR_COMMENT?)? _NEW_LINE_OR_COMMENT? IN _NEW_LINE_OR_COMMENT? expression ":" _NEW_LINE_OR_COMMENT?
+!for_cond : IF _NEW_LINE_OR_COMMENT? expression
 
 %ignore /[ \t]+/
 %ignore /\/\*(.|\n)*?\*\//
