@@ -1,0 +1,101 @@
+{
+  "locals": [
+    {
+      "literal_open": [
+        "$${"
+      ],
+      "literal_reference": [
+        "$${var.name}"
+      ],
+      "mixed": [
+        "prefix-$${literal}-${var.name}"
+      ],
+      "dollar_before": [
+        "$$${var.name}"
+      ],
+      "lone_dollars": [
+        "$$"
+      ],
+      "trailing_dollar": [
+        "100$"
+      ],
+      "contains_literal": [
+        "${strcontains(var.name,\"$${\")}"
+      ],
+      "after_1": [
+        "value-1"
+      ],
+      "after_2": [
+        "value-2"
+      ],
+      "after_3": [
+        "value-3"
+      ],
+      "after_4": [
+        "value-4"
+      ],
+      "after_5": [
+        "value-5"
+      ],
+      "after_6": [
+        "value-6"
+      ],
+      "after_7": [
+        "value-7"
+      ],
+      "after_8": [
+        "value-8"
+      ],
+      "after_9": [
+        "value-9"
+      ],
+      "after_10": [
+        "value-10"
+      ],
+      "after_11": [
+        "value-11"
+      ],
+      "after_12": [
+        "value-12"
+      ],
+      "after_13": [
+        "value-13"
+      ],
+      "after_14": [
+        "value-14"
+      ],
+      "after_15": [
+        "value-15"
+      ],
+      "after_16": [
+        "value-16"
+      ],
+      "after_17": [
+        "value-17"
+      ],
+      "after_18": [
+        "value-18"
+      ],
+      "after_19": [
+        "value-19"
+      ],
+      "after_20": [
+        "value-20"
+      ],
+      "after_21": [
+        "value-21"
+      ],
+      "after_22": [
+        "value-22"
+      ],
+      "after_23": [
+        "value-23"
+      ],
+      "after_24": [
+        "value-24"
+      ],
+      "__start_line__": 1,
+      "__end_line__": 33
+    }
+  ]
+}
