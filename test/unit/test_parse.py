@@ -1,4 +1,5 @@
 """Test the parsing of lines and files"""
+import time
 from unittest import TestCase
 
 import hcl2
@@ -116,3 +117,32 @@ class TestParse(TestCase):
                 ]
             }
         )
+
+    def test_parse_escaped_interpolation(self):
+        """Escaped "$${" sequences are plain text and parse as literal strings"""
+        cases = [
+            ('"$${"', '$${'),
+            ('"$${var.name}"', '$${var.name}'),
+            ('"prefix-$${literal}-${var.name}"', 'prefix-$${literal}-${var.name}'),
+            ('"$$${var.name}"', '$$${var.name}'),
+            ('"$$"', '$$'),
+            ('"100$"', '100$'),
+        ]
+
+        for literal, expected in cases:
+            with self.subTest(literal=literal):
+                result = hcl2.loads(f'v = {literal}\n')
+                self.assertEqual(result['v'], [expected])
+
+    def test_parse_escaped_interpolation_is_fast(self):
+        """Parse time stays flat when an escaped "$${" is followed by many other strings"""
+        lines = ['  a = strcontains(var.name, "$${")']
+        lines += [f'  s{i} = "value-{i}"' for i in range(40)]
+        text = 'locals {\n' + '\n'.join(lines) + '\n}\n'
+
+        start = time.monotonic()
+        result = hcl2.loads(text)
+        elapsed = time.monotonic() - start
+
+        self.assertEqual(result['locals'][0]['s39'], ['value-39'])
+        self.assertLess(elapsed, 5)
